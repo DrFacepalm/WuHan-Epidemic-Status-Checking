@@ -3,10 +3,11 @@ from botocore.errorfactory import ClientError
 import requests
 import boto3
 import datetime
-from secret import *
 
 
 # Info and Credential.
+access_key = ""
+secret_access_key = ""
 bucket_name = "epidemic-tracking"
 object_key = "data.txt"
 
