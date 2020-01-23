@@ -7,24 +7,36 @@ A webscraper that gathers information about the WuHan Epidemic, then we can use 
 
 # Repository Organisation
 `scraper` - A python scraper that downloads the data periodically.
+
 `front-end` - An react app that visualise the data and future prediction.
+
 `back-end` - A python flask app that augment and fit the data.
+
 
 # 项目结构
 `scraper` - Python爬虫，固定时间抓取数据。
+
 `front-end` - React 网页前端，用于显示数据。
+
 `back-end` - Python Flask后端，用于处理数据以及预测趋势。
+
 
 
 # Progress
 `scaper` - Completed
+
 `front-end` - Just Started (Eta Completion 26th)
+
 `back-end` - Not Yet Started (Eta Completion 26th)
+
 
 # 进度
 `scaper` - 已完成
+
 `front-end` - 开发中 (预计完成 1月26日)
+
 `back-end` - 未开始 (预计完成 1月26th)
+
 
 
 # Data
