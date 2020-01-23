@@ -3,19 +3,19 @@ import logo from './logo.svg';
 import './App.css';
 
 function Number1(props) {
-  return <h1>10 people have died</h1>;
+  return <h1 className="App-logo">10 people have died</h1>;
 }
 
 function Number2(props) {
-  return <h1>20 people have almost died</h1>;
+  return <h1 className="App-logo">20 people have almost died</h1>;
 }
 
 function Number3(props) {
-  return <h1>30 people have nearly died</h1>;
+  return <h1 className="App-logo">30 people have nearly died</h1>;
 }
 
 function Number4(props) {
-  return <h1>40 people are normal</h1>;
+  return <h1 className="App-logo">40 people are normal</h1>;
 }
 
 
