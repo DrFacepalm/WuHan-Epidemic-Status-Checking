@@ -1,7 +1,7 @@
 # WuHan-Epidemic-Status-Checking (2019-nCov)
 A webscraper that gathers information about the WuHan Epidemic, then we can use this information to predict the number of patients in the fucture and visualise it on a website.
 
-# 武汉新型冠状病毒 2019-nCov 追踪以及预测
+# 武汉新型冠状病毒/新型肺炎 2019-nCov 爬虫，追踪以及预测
 抓取丁香医生提供的数据来预测未来可能的确诊数量。数据将更新在网页端。
 
 
