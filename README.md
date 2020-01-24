@@ -12,6 +12,8 @@ A webscraper that gathers information about the WuHan Epidemic, then we can use 
 
 `back-end` - A python flask app that augment and fit the data.
 
+`data` - Periodically publish the scraped data.
+
 
 # 项目结构
 `scraper` - Python爬虫，固定时间抓取数据。
@@ -20,6 +22,7 @@ A webscraper that gathers information about the WuHan Epidemic, then we can use 
 
 `back-end` - Python Flask后端，用于处理数据以及预测趋势。
 
+`data` - 抓取的数据。
 
 
 # Progress
