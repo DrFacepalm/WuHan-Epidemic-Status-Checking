@@ -12,6 +12,8 @@ A webscraper that gathers information about the WuHan Epidemic, then we can use 
 
 `back-end` - A python flask app that augment and fit the data.
 
+`data` - Periodically publish the scraped data.
+
 
 # 项目结构
 `scraper` - Python爬虫，固定时间抓取数据。
@@ -20,6 +22,7 @@ A webscraper that gathers information about the WuHan Epidemic, then we can use 
 
 `back-end` - Python Flask后端，用于处理数据以及预测趋势。
 
+`data` - 抓取的数据。
 
 
 # Progress
@@ -47,10 +50,10 @@ The data gathering only gathers the total number of `confirmed cases`, `suspecte
 
 
 # Next Data Publishing Date
-24th Jan 2:00PM (Australian Eastern Standard Time (AEST))
+25th Jan 12:00AM (Australian Eastern Standard Time (AEST))
 
 # 下一批数据公开时间
-一月24日 上午11:00 （北京时间）
+一月25日 午夜 （北京时间）
 
 
 # Attribution / 数据来源
