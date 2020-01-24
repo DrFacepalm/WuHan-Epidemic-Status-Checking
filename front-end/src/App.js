@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState, useEffect, useContext } from 'react';
+
 
 import red from '@material-ui/core/colors/red';
 import purple from '@material-ui/core/colors/purple';
@@ -7,7 +8,8 @@ import deepPurple from '@material-ui/core/colors/deepPurple';
 import indigo from '@material-ui/core/colors/indigo'
 import blue from '@material-ui/core/colors/blue';
 
-
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
@@ -23,7 +25,6 @@ import './App.css';
 const useStyles = makeStyles(theme => ({
   root: {
     flewGrow: 1,
-    paddingTop: '10px',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -42,49 +43,69 @@ const useStyles = makeStyles(theme => ({
   statisticText: {
     textAlign: 'center',
   },
-  confirmed: {
-    backgroundColor: purple[100],
+  card: {
+    minWidth: 275,
+    padding: theme.spacing(3),
   },
-  suspected: {
-    backgroundColor: blue[600],
-  },
-  cured: {
-    backgroundColor: deepPurple[100],
-  },
-  fatal: {
-    backgroundColor: pink[100],
+  gridItem: {
+    padding: theme.spacing(5),
   }
 }));
 
 
 
-function StatisticsGrid() {
-  const classes = useStyles()
+const StatisticCard = (title, number) => {
+  const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
-        <Grid item xs={6} className={classes.confirmed}>
-          <h4 className={classes.statisticText}>Confirmed</h4>
-        </Grid>
-        <Grid item xs={6} className={classes.suspected}>
-          <h4 className={classes.statisticText}>Suspected</h4>
-        </Grid>
-        <Grid item xs={6} className={classes.cured}>
-          <h4 className={classes.statisticText}>Cured</h4>
-        </Grid>
-        <Grid item xs={6} className={classes.fatal}>
-          <h4 className={classes.statisticText}>Fatal</h4>
-        </Grid>
-      </Grid>
+      <Card className={classes.card}>
+        <CardContent>
+          <Typography variant="subtitle1">
+            {title}:
+          </Typography>
+          <Typography variant="h4">
+            {number}
+          </Typography>
+        </CardContent>
+      </Card>
     </div>
   )
 }
 
+function OverallStatisticGrid(props) {
+  const classes = useStyles();
+
+  const [ titles, setTitle ] = useState(["Confirmed", "Suspected", "Cured", "Fatalities"]);
+  const [ numbers, setNumbers ] = useState(["800", "1000", "30", "20"]);
+
+  return (
+    <div className={classes.root}>
+      <Grid container>
+        {
+          titles.map((title, index) => (
+            <Grid item xs={6} className={classes.gridItem}>
+              {StatisticCard(title, numbers[index])}
+            </Grid>
+          ))
+        }
+      </Grid>
+    </div>
+  );
+}
+
+// To create, do:
+
+
+function x() {
+  return "asdf"
+}
+
+
 
 function MyAppBar(props) {
   const classes = useStyles()
-  return (<AppBar position="static">
+  return (<AppBar position="sticky">
             <Toolbar className={classes.title}>
               <Typography variant="h2" className={classes.title}>
                 WuHan Epidemic Tracking
@@ -124,7 +145,7 @@ function App() {
       <h3>
         Overall Statistics
       </h3>
-      <StatisticsGrid/>
+      <OverallStatisticGrid/>
       <h3>
         Other Info
       </h3>
@@ -132,15 +153,9 @@ function App() {
       <Number2/>
       <Number3/>
       <Number4/>
+
     </React.Fragment>
     
-    // <div className="App">
-    //   <TitleBar/>
-    //   <Number1/>
-    //   <Number2/>
-    //   <Number3/>
-    //   <Number4/>
-    // </div>
   );
 }
 
