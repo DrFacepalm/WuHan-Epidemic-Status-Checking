@@ -47,10 +47,10 @@ The data gathering only gathers the total number of `confirmed cases`, `suspecte
 
 
 # Next Data Publishing Date
-24th Jan 2:00PM (Australian Eastern Standard Time (AEST))
+25th Jan 12:00AM (Australian Eastern Standard Time (AEST))
 
 # 下一批数据公开时间
-一月24日 上午11:00 （北京时间）
+一月25日 午夜 （北京时间）
 
 
 # Attribution / 数据来源
