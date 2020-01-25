@@ -1,0 +1,26 @@
+[
+  {
+    "id": "Confirmed",
+    "label": "Confirmed",
+    "value": 100,
+    "color": "hsl(54, 70%, 50%)"
+  },
+  {
+    "id": "Suspected",
+    "label": "Suspected",
+    "value": 200,
+    "color": "hsl(63, 70%, 50%)"
+  },
+  {
+    "id": "Cured",
+    "label": "Cured",
+    "value": 300,
+    "color": "hsl(311, 70%, 50%)"
+  },
+  {
+    "id": "Death",
+    "label": "Death",
+    "value": 400,
+    "color": "hsl(23, 70%, 50%)"
+  }
+]
