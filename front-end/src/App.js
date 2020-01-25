@@ -78,7 +78,7 @@ function OverallStatisticGrid(props) {
       <Card className={classes.card}>
         <CardContent>
           {TitleBanner("Overview")}
-          {DailyGraph()}
+          <DailyGraph/>
         </CardContent>
       </Card>
     </div>
@@ -92,7 +92,7 @@ function GraphComponent() {
       <div className={classes.root}>
         <Card className={classes.card}>
           <CardContent>
-            {OverallGraph()}
+            <OverallGraph/>
           </CardContent>
         </Card>
       </div>
@@ -117,8 +117,6 @@ function Contents() {
     </div>
 )
 }
-
-
 
 function TitleBar(props) {
   return <h1 className="App-header">Some Title</h1>
