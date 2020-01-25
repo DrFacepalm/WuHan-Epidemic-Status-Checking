@@ -49,11 +49,11 @@ The data gathering only gathers the total number of `confirmed cases`, `suspecte
 这个项目暂时只抓取全部确诊，疑似，治愈以及死亡人数。各省数据暂时不在考虑范围内。 数据抓去频率约为1小时一次。
 
 
-# Next Data Publishing Date
-25th Jan 12:00AM (Australian Eastern Standard Time (AEST))
+# Next Data Publishing DateP
+26th Jan 12:00PM (Beijing Time)
 
 # 下一批数据公开时间
-一月25日 午夜 （北京时间）
+一月26日 正午 （北京时间）
 
 
 # Attribution / 数据来源
