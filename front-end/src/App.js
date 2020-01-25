@@ -1,5 +1,7 @@
 import React, {useState, useEffect, useContext } from 'react';
 
+import { ResponsiveLine } from '@nivo/line'
+
 
 import red from '@material-ui/core/colors/red';
 import purple from '@material-ui/core/colors/purple';
@@ -21,6 +23,8 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper';
 
 import './App.css';
+
+const data = import("fodderdata.json")
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,6 +54,12 @@ const useStyles = makeStyles(theme => ({
   gridItem: {
     padding: theme.spacing(3),
   },
+  contentGridContainer: {
+    padding: theme.spacing(3)
+  },
+  contentGridItem: {
+    paddingTop: "5px",
+  },
 
 }));
 
@@ -60,9 +70,9 @@ const TitleBanner = (title) => {
 
   return (
     <div className={classes.root}>
-          <Typography variant="h3" align="center">
-            {title}
-          </Typography>
+      <Typography variant="h3" align="center">
+        {title}
+      </Typography>
     </div>
   );
 }
@@ -98,7 +108,7 @@ function OverallStatisticGrid(props) {
 
   return (
     <div className={classes.root}>
-      <Grid container>
+      <Grid container spacing={5}>
         {
           titles.map((title, index) => (
             <Grid item xs={6} className={classes.gridItem}>
@@ -111,6 +121,88 @@ function OverallStatisticGrid(props) {
   );
 }
 
+// Graph component
+
+const MyGraph = ({data}) => {
+  return (
+    <ResponsiveLine
+      data={data}
+      margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+      xScale={{ type: 'point' }}
+      yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
+      axisTop={null}
+      axisRight={null}
+      axisBottom={{
+          orient: 'bottom',
+          tickSize: 5,
+          tickPadding: 5,
+          tickRotation: 0,
+          legend: 'transportation',
+          legendOffset: 36,
+          legendPosition: 'middle'
+      }}
+      axisLeft={{
+          orient: 'left',
+          tickSize: 5,
+          tickPadding: 5,
+          tickRotation: 0,
+          legend: 'count',
+          legendOffset: -40,
+          legendPosition: 'middle'
+      }}
+      colors={{ scheme: 'nivo' }}
+      pointSize={10}
+      pointColor={{ theme: 'background' }}
+      pointBorderWidth={2}
+      pointBorderColor={{ from: 'serieColor' }}
+      pointLabel="y"
+      pointLabelYOffset={-12}
+      useMesh={true}
+      legends={[
+          {
+              anchor: 'bottom-right',
+              direction: 'column',
+              justify: false,
+              translateX: 100,
+              translateY: 0,
+              itemsSpacing: 0,
+              itemDirection: 'left-to-right',
+              itemWidth: 80,
+              itemHeight: 20,
+              itemOpacity: 0.75,
+              symbolSize: 12,
+              symbolShape: 'circle',
+              symbolBorderColor: 'rgba(0, 0, 0, .5)',
+              effects: [
+                  {
+                      on: 'hover',
+                      style: {
+                          itemBackground: 'rgba(0, 0, 0, .03)',
+                          itemOpacity: 1
+                      }
+                  }
+              ]
+          }
+      ]}
+    />
+  )
+}
+
+function GraphComponent() {
+  const classes = useStyles();
+
+  return (
+      <div className={classes.root}>
+        <Card className={classes.card}>
+          <CardContent>
+            {MyGraph(data)}
+          </CardContent>
+        </Card>
+      </div>
+    
+  )
+}
+
 
 
 
@@ -120,15 +212,18 @@ function ContentGridContainer() {
   const classes = useStyles();
 
   return (
-    <Grid container>
-      <Grid item xs={12}>
+    <Grid container className={classes.contentGridContainer}>
+      <Grid item xs={12} className={classes.contentGridItem}>
         {TitleBanner("Overall Stats")}
       </Grid> 
-      <Grid item xs={12}>
+      <Grid item xs={12} className={classes.contentGridItem}>
         <OverallStatisticGrid/>
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} className={classes.contentGridItem}>
         {TitleBanner("Graph")}
+      </Grid>
+      <Grid item xs={12} className={classes.contentGridItem}>
+        <GraphComponent/>
       </Grid>
     </Grid>
   )
