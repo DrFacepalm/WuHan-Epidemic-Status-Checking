@@ -9,7 +9,7 @@ import pink from '@material-ui/core/colors/pink';
 import deepPurple from '@material-ui/core/colors/deepPurple';
 import indigo from '@material-ui/core/colors/indigo'
 import blue from '@material-ui/core/colors/blue';
-import data from './fodderdata';
+import localData from './fodderdata';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -122,10 +122,11 @@ function OverallStatisticGrid(props) {
 
 // Graph component
 
-const MyGraph = ({data}) => {
+const MyGraph = () => {
   return (
+    <div style={{height: 500}}>
     <ResponsiveLine
-      data={data}
+      data={localData}
       margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
       xScale={{ type: 'point' }}
       yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
@@ -184,6 +185,7 @@ const MyGraph = ({data}) => {
           }
       ]}
     />
+</div>
   )
 }
 
@@ -194,7 +196,7 @@ function GraphComponent() {
       <div className={classes.root}>
         <Card className={classes.card}>
           <CardContent>
-            {MyGraph(data)}
+            {MyGraph()}
           </CardContent>
         </Card>
       </div>
