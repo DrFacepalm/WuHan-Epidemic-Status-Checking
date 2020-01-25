@@ -9,6 +9,7 @@ import pink from '@material-ui/core/colors/pink';
 import deepPurple from '@material-ui/core/colors/deepPurple';
 import indigo from '@material-ui/core/colors/indigo'
 import blue from '@material-ui/core/colors/blue';
+import data from './fodderdata';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -23,8 +24,6 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper';
 
 import './App.css';
-
-const data = import("fodderdata.json")
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -199,7 +198,7 @@ function GraphComponent() {
           </CardContent>
         </Card>
       </div>
-    
+
   )
 }
 
@@ -215,7 +214,7 @@ function ContentGridContainer() {
     <Grid container className={classes.contentGridContainer}>
       <Grid item xs={12} className={classes.contentGridItem}>
         {TitleBanner("Overall Stats")}
-      </Grid> 
+      </Grid>
       <Grid item xs={12} className={classes.contentGridItem}>
         <OverallStatisticGrid/>
       </Grid>
@@ -238,7 +237,7 @@ function MyAppBar(props) {
               <Typography variant="h2" className={classes.title}>
                 WuHan Epidemic Tracking
               </Typography>
-              
+
             </Toolbar>
           </AppBar>
           )
@@ -256,7 +255,7 @@ function App() {
       <MyAppBar/>
       <ContentGridContainer/>
     </React.Fragment>
-    
+
   );
 }
 
