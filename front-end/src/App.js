@@ -45,14 +45,31 @@ const useStyles = makeStyles(theme => ({
   },
   card: {
     minWidth: 275,
-    padding: theme.spacing(3),
+    padding: theme.spacing(8),
   },
   gridItem: {
-    padding: theme.spacing(5),
-  }
+    padding: theme.spacing(3),
+  },
+
 }));
 
+// Title Banner
 
+const TitleBanner = (title) => {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+          <Typography variant="h3" align="center">
+            {title}
+          </Typography>
+    </div>
+  );
+}
+
+
+
+// Overall Statistics
 
 const StatisticCard = (title, number) => {
   const classes = useStyles();
@@ -94,11 +111,27 @@ function OverallStatisticGrid(props) {
   );
 }
 
-// To create, do:
 
 
-function x() {
-  return "asdf"
+
+// Overall Content
+
+function ContentGridContainer() {
+  const classes = useStyles();
+
+  return (
+    <Grid container>
+      <Grid item xs={12}>
+        {TitleBanner("Overall Stats")}
+      </Grid> 
+      <Grid item xs={12}>
+        <OverallStatisticGrid/>
+      </Grid>
+      <Grid item xs={12}>
+        {TitleBanner("Graph")}
+      </Grid>
+    </Grid>
+  )
 }
 
 
@@ -120,40 +153,13 @@ function TitleBar(props) {
   return <h1 className="App-header">Some Title</h1>
 }
 
-function Number1(props) {
-  return <h1>Confirmed Cases:</h1>;
-}
-
-function Number2(props) {
-  return <h1>Suspected Cases:</h1>;
-}
-
-function Number3(props) {
-  return <h1>Cured Cases:</h1>;
-}
-
-function Number4(props) {
-  return <h1>Fatal Cases:</h1>;
-}
-
 
 function App() {
   return (
     <React.Fragment>
       <CssBaseline />
       <MyAppBar/>
-      <h3>
-        Overall Statistics
-      </h3>
-      <OverallStatisticGrid/>
-      <h3>
-        Other Info
-      </h3>
-      <Number1/>
-      <Number2/>
-      <Number3/>
-      <Number4/>
-
+      <ContentGridContainer/>
     </React.Fragment>
     
   );
