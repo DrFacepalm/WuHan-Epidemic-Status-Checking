@@ -2,25 +2,25 @@
   {
     "id": "Confirmed",
     "label": "Confirmed",
-    "value": 100,
+    "value": 1300,
     "color": "hsl(54, 70%, 50%)"
   },
   {
     "id": "Suspected",
     "label": "Suspected",
-    "value": 200,
+    "value": 1600,
     "color": "hsl(63, 70%, 50%)"
   },
   {
     "id": "Cured",
     "label": "Cured",
-    "value": 300,
-    "color": "hsl(311, 70%, 50%)"
+    "value": 39,
+    "color": "#61cdbb"
   },
   {
     "id": "Death",
     "label": "Death",
-    "value": 400,
+    "value": 42,
     "color": "hsl(23, 70%, 50%)"
   }
 ]

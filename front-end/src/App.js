@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import OverallGraph from './components/OverallGraph'
 import DailyGraph from './components/DailyGraph'
+import Last24HoursGraph from './components/Last24HoursGraph'
 
 
 const useStyles = makeStyles(theme => ({
@@ -43,6 +44,7 @@ const useStyles = makeStyles(theme => ({
   },
   Item: {
     paddingTop: 20,
+    paddingBottom: 20
   }
 }));
 
@@ -61,68 +63,81 @@ function MyAppBar(props) {
 }
 
 // Title banner for each card.
-const TitleBanner = (title) => {
+function TitleBanner (title) {
   const classes = useStyles()
   return (
-      <Typography variant="h3" align="left" className={classes.root}>
-        {title}
-      </Typography>
+    <Typography variant="h3" align="left" className={classes.root}>
+      {title}
+    </Typography>
   );
 }
 
-
-function OverallStatisticGrid(props) {
+// Displaying Overview Card.
+function OverviewCard(props) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <Card className={classes.card}>
         <CardContent>
           {TitleBanner("Overview")}
-          <DailyGraph/>
+          {OverallGraph()}
         </CardContent>
       </Card>
     </div>
   );
 }
 
-
-function GraphComponent() {
+// Displaying Daily Card.
+function DailyCard(props) {
   const classes = useStyles();
   return (
-      <div className={classes.root}>
-        <Card className={classes.card}>
-          <CardContent>
-            <OverallGraph/>
-          </CardContent>
-        </Card>
-      </div>
+    <div className={classes.root}>
+      <Card className={classes.card}>
+        <CardContent>
+          {TitleBanner("Daily Trends")}
+          {DailyGraph()}
+        </CardContent>
+      </Card>
+    </div>
   )
 }
 
+// Displaying Daily Card.
+function Last24HoursCard(props) {
+  const classes = useStyles();
+  return (
+    <div className={classes.root}>
+      <Card className={classes.card}>
+        <CardContent>
+          {TitleBanner("Last 24 Hours")}
+          {Last24HoursGraph()}
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
 
-// Overall Content
+// Contents of the app.
 function Contents() {
   const classes = useStyles();
-
   return (
     <div className={classes.background}>
-        <Grid container className={classes.Contents} backgroundColor="red">
-          <Grid item xs={12} className={classes.Item}>
-            <OverallStatisticGrid/>
-          </Grid>
-          <Grid item xs={12} className={classes.Item}>
-            <GraphComponent/>
-          </Grid>
+      <Grid container className={classes.Contents} backgroundColor="red">
+        <Grid item xs={12} className={classes.Item}>
+          <OverviewCard/>
         </Grid>
+        <Grid item xs={12} className={classes.Item}>
+          <DailyCard/>
+        </Grid>
+        <Grid item xs={12} className={classes.Item}>
+          <Last24HoursCard/>
+        </Grid>
+      </Grid>
     </div>
 )
 }
 
-function TitleBar(props) {
-  return <h1 className="App-header">Some Title</h1>
-}
-
-// App's Main Interface.
+// App's Structure.
 function App() {
   return (
     <React.Fragment>

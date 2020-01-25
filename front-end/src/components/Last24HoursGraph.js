@@ -25,7 +25,7 @@ function useWindowDimensions() {
   return windowDimensions;
 }
 
-function DailyGraph(props)  {
+function Last24HoursGraph(props)  {
   const {_, height} = useWindowDimensions();
 
   return (
@@ -94,4 +94,4 @@ function DailyGraph(props)  {
   )
 }
 
-export default DailyGraph;
+export default Last24HoursGraph;

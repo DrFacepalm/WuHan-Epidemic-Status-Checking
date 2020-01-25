@@ -1,65 +1,116 @@
-import React from 'react';
-import { ResponsiveLine } from '@nivo/line'
-import localData from '../overall';
+import React, { useState, useEffect } from 'react';
+import { ResponsivePie } from '@nivo/pie'
+import localOverallData from '../overall';
 
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
 
-function OverallGraph(props)  {
-  return (
-    <div style={{height: 500}}>
-      <ResponsiveLine
-        data={localData}
-        margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-        xScale={{ type: 'point' }}
-        yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
-        axisTop={null}
-        axisRight={null}
-        axisBottom={{
-          orient: 'bottom',
-          tickSize: 5,
-          tickPadding: 5,
-          tickRotation: 0,
-          legend: 'transportation',
-          legendOffset: 36,
-          legendPosition: 'middle'
-        }}
-        axisLeft={{
-          orient: 'left',
-          tickSize: 5,
-          tickPadding: 5,
-          tickRotation: 0,
-          legend: 'count',
-          legendOffset: -40,
-          legendPosition: 'middle'
-        }}
+function useWindowDimensions() {
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowDimensions;
+}
+
+function OverallGraph(props) {
+  const {w, height} = useWindowDimensions();
+
+  return(
+    <div style={{height: height*0.5}}>
+      <ResponsivePie
+        data={localOverallData}
+        margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+        innerRadius={0.4}
+        padAngle={8}
+        cornerRadius={3}
         colors={{ scheme: 'nivo' }}
-        pointSize={10}
-        pointColor={{ theme: 'background' }}
-        pointBorderWidth={2}
-        pointBorderColor={{ from: 'serieColor' }}
-        pointLabel="y"
-        pointLabelYOffset={-12}
-        useMesh={true}
+        borderWidth={1}
+        borderColor={{ from: 'color', modifiers: [ [ 'darker', 0.2 ] ] }}
+        sortByValue={true}
+        radialLabelsSkipAngle={0}
+        radialLabelsTextXOffset={6}
+        radialLabelsTextColor="#333333"
+        radialLabelsLinkOffset={5}
+        radialLabelsLinkDiagonalLength={16}
+        radialLabelsLinkHorizontalLength={0}
+        radialLabelsLinkStrokeWidth={1}
+        radialLabelsLinkColor={{ from: 'color' }}
+        slicesLabelsSkipAngle={10}
+        slicesLabelsTextColor="#333333"
+        animate={true}
+        motionStiffness={90}
+        motionDamping={15}
+        defs={[
+          {
+              id: 'dots',
+              type: 'patternDots',
+              background: 'inherit',
+              color: 'rgba(255, 255, 255, 0.3)',
+              size: 4,
+              padding: 1,
+              stagger: true
+          },
+          {
+              id: 'lines',
+              type: 'patternLines',
+              background: 'inherit',
+              color: 'rgba(255, 255, 255, 0.3)',
+              rotation: -45,
+              lineWidth: 6,
+              spacing: 10
+          }
+        ]}
+        fill={[
+          {
+              match: {
+                  id: 'Death'
+              },
+              id: 'lines'
+          },
+          {
+              match: {
+                  id: 'Confirmed'
+              }
+          },
+          {
+              match: {
+                  id: 'Death'
+              }
+          },
+          {
+              match: {
+                  id: 'Death'
+              }
+          }
+        ]}
         legends={[
           {
-            anchor: 'bottom-right',
-            direction: 'column',
-            justify: false,
-            translateX: 100,
-            translateY: 0,
-            itemsSpacing: 0,
-            itemDirection: 'left-to-right',
+            anchor: 'bottom',
+            direction: 'row',
+            translateY: 56,
             itemWidth: 80,
-            itemHeight: 20,
-            itemOpacity: 0.75,
-            symbolSize: 12,
+            itemHeight: 30,
+            itemTextColor: '#999',
+            symbolSize: 18,
             symbolShape: 'circle',
-            symbolBorderColor: 'rgba(0, 0, 0, .5)',
             effects: [
               {
                 on: 'hover',
                 style: {
-                  itemBackground: 'rgba(0, 0, 0, .03)',
-                  itemOpacity: 1
+                    itemTextColor: '#000'
                 }
               }
             ]
