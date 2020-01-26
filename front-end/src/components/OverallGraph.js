@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ResponsivePie } from '@nivo/pie'
 import WindowDimensions from './WindowDimensions'
-import localOverallData from '../overall';
+import axios from 'axios'
 
 function OverallGraph(props) {
   const {_, height} = WindowDimensions();
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axios('http://127.0.0.1:5000/api/overview');
+      setData(res.data.data);
+    };
+    fetchData();
+  }, []);
 
   return(
     <div style={{height: height*0.5}}>
       <ResponsivePie
-        data={localOverallData}
+        data={data}
         margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
         innerRadius={0.4}
         padAngle={8}

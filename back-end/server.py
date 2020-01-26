@@ -45,14 +45,12 @@ def hourly_source():
 def daily_source():
     url = 'https://raw.githubusercontent.com/DrFacepalm/WuHan-Epidemic-Status-Checking/master/data/PerDay.csv'
     response = str(rq.get(url).content, "utf-8").split("\n")
-    print(response)
     data = []
 
     for line in response:
         if not line:
             continue
         line = line.split(",")
-        print(line)
         timestamp = line[0]
         confirmed = int(line[1])
         death = int(line[2])
@@ -71,12 +69,30 @@ def make_payload(data):
 def overview():
     src = hourly_source()
     latest = src[-1]
-    payload = make_payload({
-        "confirmed":latest[0],
-        "suspected":latest[1],
-        "death":latest[2],
-        "cured":latest[3]
-    })
+
+    payload = make_payload([
+        {
+            "id": "Confirmed",
+            "label": "Confirmed",
+            "value": latest[0]
+        },
+        {
+            "id": "Suspected",
+            "label": "Suspected",
+            "value": latest[1]
+        },
+        {
+            "id": "Cured",
+            "label": "Cured",
+            "value": latest[3]
+        },
+        {
+            "id": "Death",
+            "label": "Death",
+            "value": latest[2]
+        }
+    ])
+
     return jsonify(payload)
 
 
@@ -84,19 +100,58 @@ def overview():
 @app.route('/api/hourly_data', methods=['GET'])
 def hourly_data():
     src = hourly_source()
-    past_24_hours = src[-24:]
+    past_48_hours = src[-48:]
 
-    data = {}
-    i = 0
-    for hour in past_24_hours:
-        data[i] = {
-            "confirmed":hour[0],
-            "suspected":hour[1],
-            "death":hour[2],
-            "cured":hour[3],
-            "timestamp":(int(hour[4].split(" ")[1])+8) %24 # UTC to Beijing Time
+    confirmed = []
+    suspected = []
+    cured = []
+    death = []
+
+    i = 47
+    for hour in past_48_hours:
+        label = i
+        if label == 0:
+            label = "NOW"
+        confirmed.append({
+            "x":label,
+            "y":hour[0]
+        })
+        suspected.append({
+            "x":label,
+            "y":hour[1]
+        })
+        cured.append({
+            "x":label,
+            "y":hour[2]
+        })
+        death.append({
+            "x":label,
+            "y":hour[3]
+        })
+        i -= 1
+
+    data = [
+        {
+            "id": "Confirmed",
+            "color": "hsl(91, 70%, 50%)",
+            "data": confirmed
+        },
+        {
+            "id": "Suspected",
+            "color": "hsl(91, 70%, 50%)",
+            "data": suspected
+        },
+        {
+            "id": "Cured",
+            "color": "hsl(91, 70%, 50%)",
+            "data": cured
+        },
+        {
+            "id": "Death",
+            "color": "hsl(91, 70%, 50%)",
+            "data": death
         }
-        i += 1
+    ]
 
     payload = make_payload(data)
 
@@ -108,18 +163,35 @@ def hourly_data():
 def daily_data():
     src = daily_source()
 
-    data = {}
+    confirmed = []
+    death = []
+
     i = 0
     for day in src:
-        data[i] = {
-            "confirmed":day[1],
-            "death":day[2],
-            "timestamp":day[0]
-        }
+        confirmed.append({
+            "x":day[0],
+            "y":day[1]
+        })
+        death.append({
+            "x":day[0],
+            "y":day[2]
+        })
         i += 1
 
+    data = [
+        {
+            "id": "Confirmed",
+            "color": "hsl(91, 70%, 50%)",
+            "data": confirmed
+        },
+        {
+            "id": "Death",
+            "color": "hsl(91, 70%, 50%)",
+            "data": death
+        }
+    ]
+
     payload = make_payload(data)
-    
     return jsonify(payload)
 
 # Run the server.

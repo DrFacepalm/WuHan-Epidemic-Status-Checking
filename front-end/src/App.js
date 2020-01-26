@@ -9,12 +9,15 @@ import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import OverallGraph from './components/OverallGraph'
 import DailyGraph from './components/DailyGraph'
-import Last24HoursGraph from './components/Last24HoursGraph'
+import Last48HoursGraph from './components/Last48HoursGraph'
 
 
 const useStyles = makeStyles(theme => ({
   root: {
     flewGrow: 1,
+  },
+  footer: {
+    color: "#bdbdbd"
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -93,14 +96,14 @@ function DailyCard(props) {
 }
 
 // Displaying Daily Card.
-function Last24HoursCard(props) {
+function Last48HoursCard(props) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <Card className={classes.card}>
         <CardContent>
-          {TitleBanner("Last 24 Hours")}
-          {Last24HoursGraph()}
+          {TitleBanner("Last 48 Hours")}
+          {Last48HoursGraph()}
         </CardContent>
       </Card>
     </div>
@@ -120,7 +123,18 @@ function Contents() {
           <DailyCard/>
         </Grid>
         <Grid item xs={12} className={classes.Item}>
-          <Last24HoursCard/>
+          <Last48HoursCard/>
+        </Grid>
+        <Grid item xs={12} className={classes.Item}>
+        <Typography variant="body2" align="center" className={classes.footer}>
+          Created by @DrFacepalm and @Zachaccino on Github.
+        </Typography>
+        <Typography variant="body2" align="center" className={classes.footer}>
+          Source: 3g.dxy.cn/newh5/view/pneumonia
+        </Typography>
+        <Typography variant="body2" align="center" className={classes.footer}>
+          Project: github.com/DrFacepalm/WuHan-Epidemic-Status-Checking
+        </Typography>
         </Grid>
       </Grid>
     </div>

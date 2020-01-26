@@ -1,26 +1,24 @@
-[
-  {
-    "id": "Confirmed",
-    "label": "Confirmed",
-    "value": 2029,
-    "color": "hsl(54, 70%, 50%)"
-  },
-  {
-    "id": "Suspected",
-    "label": "Suspected",
-    "value": 2684,
-    "color": "hsl(63, 70%, 50%)"
-  },
-  {
-    "id": "Cured",
-    "label": "Cured",
-    "value": 49,
-    "color": "#61cdbb"
-  },
-  {
-    "id": "Death",
-    "label": "Death",
-    "value": 56,
-    "color": "hsl(23, 70%, 50%)"
-  }
-]
+{
+  "data": [
+    {
+      "id": "Confirmed",
+      "label": "Confirmed",
+      "value": 2071
+    },
+    {
+      "id": "Suspected",
+      "label": "Suspected",
+      "value": 2692
+    },
+    {
+      "id": "Cured",
+      "label": "Cured",
+      "value": 49
+    },
+    {
+      "id": "Death",
+      "label": "Death",
+      "value": 56
+    }
+  ]
+}

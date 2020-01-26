@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ResponsiveLine } from '@nivo/line'
 import WindowDimensions from './WindowDimensions'
-import localData from '../fodderdata';
+import axios from 'axios'
 
 
-function Last24HoursGraph(props)  {
+function Last48HoursGraph(props)  {
   const {_, height} = WindowDimensions();
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axios('http://127.0.0.1:5000/api/hourly_data');
+      setData(res.data.data);
+    };
+    fetchData();
+  }, []);
 
   return (
     <div style={{height: height * 0.5 }}>
       <ResponsiveLine
-        data={localData}
+        data={data}
         margin={{ top: 50, right: 60, bottom: 100, left: 60 }}
         xScale={{ type: 'point' }}
         yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: false, reverse: false }}
@@ -21,7 +30,7 @@ function Last24HoursGraph(props)  {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: 'transportation',
+          legend: 'Hours from Now',
           legendOffset: 36,
           legendPosition: 'middle'
         }}
@@ -30,8 +39,8 @@ function Last24HoursGraph(props)  {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: 'count',
-          legendOffset: -40,
+          legend: 'Number of People',
+          legendOffset: -50,
           legendPosition: 'middle'
         }}
         colors={{ scheme: 'nivo' }}
@@ -73,4 +82,4 @@ function Last24HoursGraph(props)  {
   )
 }
 
-export default Last24HoursGraph;
+export default Last48HoursGraph;
