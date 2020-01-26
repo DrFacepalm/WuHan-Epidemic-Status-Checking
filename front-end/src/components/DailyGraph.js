@@ -1,32 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { ResponsiveLine } from '@nivo/line'
+import WindowDimensions from './WindowDimensions'
 import localData from '../fodderdata';
 
-function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
-  return {
-    width,
-    height
-  };
-}
-
-function useWindowDimensions() {
-  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-
-  useEffect(() => {
-    function handleResize() {
-      setWindowDimensions(getWindowDimensions());
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  return windowDimensions;
-}
 
 function DailyGraph(props)  {
-  const {_, height} = useWindowDimensions();
+  const {_, height} = WindowDimensions();
 
   return (
     <div style={{height: height * 0.5 }}>
@@ -72,7 +51,7 @@ function DailyGraph(props)  {
             translateY: 70,
             itemsSpacing: 0,
             itemDirection: 'left-to-right',
-            itemWidth: 80,
+            itemWidth: 100,
             itemHeight: 20,
             itemOpacity: 0.75,
             symbolSize: 12,

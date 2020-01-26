@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -24,10 +24,6 @@ const useStyles = makeStyles(theme => ({
     color: 'white',
     backgroundColor: '#1b1b1b'
   },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-  },
   statisticText: {
     textAlign: 'center',
   },
@@ -35,16 +31,10 @@ const useStyles = makeStyles(theme => ({
     minWidth: 275,
     padding: theme.spacing(1),
   },
-  gridItem: {
-    padding: theme.spacing(3),
-  },
   Contents: {
-    paddingLeft: theme.spacing(3),
-    paddingRight: theme.spacing(3)
   },
   Item: {
-    paddingTop: 20,
-    paddingBottom: 20
+    padding: 20,
   }
 }));
 
@@ -123,10 +113,10 @@ function Contents() {
   return (
     <div className={classes.background}>
       <Grid container className={classes.Contents} backgroundColor="red">
-        <Grid item xs={12} className={classes.Item}>
+        <Grid item xs={12} sm={6} className={classes.Item}>
           <OverviewCard/>
         </Grid>
-        <Grid item xs={12} className={classes.Item}>
+        <Grid item xs={12} sm={6} className={classes.Item}>
           <DailyCard/>
         </Grid>
         <Grid item xs={12} className={classes.Item}>
@@ -134,7 +124,7 @@ function Contents() {
         </Grid>
       </Grid>
     </div>
-)
+  )
 }
 
 // App's Structure.

@@ -7,10 +7,8 @@ import time
 
 def event():
     # Info and Credential.
-    access_key = ""
-    secret_access_key = ""
     bucket_name = "epidemic-tracking"
-    object_key = "data.txt"
+    object_key = "data.csv"
 
 
     # Scrape Data.
@@ -22,9 +20,7 @@ def event():
 
     # Create a client.
     client = boto3.client(
-        's3',
-        aws_access_key_id=access_key,
-        aws_secret_access_key=secret_access_key
+        's3'
     )
 
 
@@ -32,7 +28,7 @@ def event():
     try:
         client.head_object(Bucket=bucket_name, Key=object_key)
     except ClientError:
-        open('data.txt', "w+").close()
+        open(object_key, "w+").close()
         client.upload_file(object_key, bucket_name, object_key)
 
 

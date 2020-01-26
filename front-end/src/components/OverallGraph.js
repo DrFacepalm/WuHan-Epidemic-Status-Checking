@@ -1,32 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { ResponsivePie } from '@nivo/pie'
+import WindowDimensions from './WindowDimensions'
 import localOverallData from '../overall';
 
-function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
-  return {
-    width,
-    height
-  };
-}
-
-function useWindowDimensions() {
-  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-
-  useEffect(() => {
-    function handleResize() {
-      setWindowDimensions(getWindowDimensions());
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  return windowDimensions;
-}
-
 function OverallGraph(props) {
-  const {w, height} = useWindowDimensions();
+  const {_, height} = WindowDimensions();
 
   return(
     <div style={{height: height*0.5}}>
@@ -101,7 +79,7 @@ function OverallGraph(props) {
             anchor: 'bottom',
             direction: 'row',
             translateY: 56,
-            itemWidth: 80,
+            itemWidth: 100,
             itemHeight: 30,
             itemTextColor: '#999',
             symbolSize: 18,
