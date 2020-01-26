@@ -10,7 +10,7 @@ function Last48HoursGraph(props)  {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios('http://127.0.0.1:5000/api/hourly_data');
+      const res = await axios('http://3.105.29.147:5000/api/hourly_data');
       setData(res.data.data);
     };
     fetchData();

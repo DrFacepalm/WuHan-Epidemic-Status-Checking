@@ -3,7 +3,6 @@ import json
 import boto3
 import csv
 import requests as rq
-from pprint import pprint
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 
@@ -195,5 +194,4 @@ def daily_data():
     return jsonify(payload)
 
 # Run the server.
-app.debug = True
-app.run()
+app.run(host='0.0.0.0', debug = False)

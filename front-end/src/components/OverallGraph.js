@@ -9,7 +9,7 @@ function OverallGraph(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios('http://127.0.0.1:5000/api/overview');
+      const res = await axios('http://3.105.29.147:5000/api/overview');
       setData(res.data.data);
     };
     fetchData();
