@@ -35,9 +35,7 @@ const useStyles = makeStyles(theme => ({
   title: {
     flexGrow: 1,
     color: 'white',
-    textAlign: 'center',
-    height: 80,
-    backgroundColor: blue[600]
+    backgroundColor: "#1b1b1b"
   },
   paper: {
     padding: theme.spacing(2),
@@ -48,7 +46,7 @@ const useStyles = makeStyles(theme => ({
   },
   card: {
     minWidth: 275,
-    padding: theme.spacing(8),
+    padding: theme.spacing(1),
   },
   gridItem: {
     padding: theme.spacing(3),
@@ -59,8 +57,31 @@ const useStyles = makeStyles(theme => ({
   contentGridItem: {
     paddingTop: "30px",
   },
+  contents: {
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3)
+  },
+  textComponent_0: {
+    textAlign: 'left',
+    color: "#757575",
+    variant: "h3",
+  },
+  testStyle: {
+    height: "100%",
+  },
+  overviewTextStyle: {
+    height: "100%",
+  },
+  titleComponent_0: {
+    textAlign: "left",
+    color: "#757575",
+    variant: "h5"
+  }
 
 }));
+
+
+
 
 // Title Banner
 
@@ -229,17 +250,117 @@ function ContentGridContainer() {
       <Grid item xs={12} className={classes.contentGridItem}>
         <GraphComponent/>
       </Grid>
+      <Grid item xs={12} className={classes.contentGridItem}>
+        <Content/>
+      </Grid>
     </Grid>
   )
 }
 
 
 
-function MyAppBar(props) {
+
+// Prototyping Next Design
+
+
+const TitleBar = (titles) => {
+  const classes = useStyles()
+
+  return (
+    <Grid item xs={12}>
+      <Grid container>
+        {
+          titles.map((title, index) => (
+            <Grid item xs={2} className={classes.gridItem}>
+              <Typography className={classes.titleComponent_0} variant="h5">
+                {title}
+              </Typography>
+            </Grid>
+          ))
+        }
+      </Grid>
+    </Grid>
+  )
+  
+
+}
+
+const OverviewTextComponent = () => {
+  const classes = useStyles()
+
+
+  return (
+    <Grid container className={classes.overviewTextStyle} direction="column" justify="center" alignItems="baseline">
+      <Grid item xs={3}>
+        <Typography className={classes.textComponent_0} variant="h4">
+          Confirmed:
+        </Typography>
+      </Grid>
+      <Grid item xs={3}>
+        <Typography className={classes.textComponent_0} variant="h4">
+          Suspected:
+        </Typography>
+      </Grid>
+      <Grid item xs={3}>
+        <Typography className={classes.textComponent_0} variant="h4">
+          Cured:
+        </Typography>
+      </Grid>
+      <Grid item xs={3}>
+        <Typography className={classes.textComponent_0} variant="h4">
+          Fatalities:
+        </Typography>
+      </Grid>
+    </Grid>
+  )
+}
+
+const InfoBox = (type) => {
+  const classes = useStyles()
+
+  return (
+    <Grid item xs={12}>
+      <Grid container>
+        <Grid item xs={3} className={classes.gridItem}>
+          {OverviewTextComponent()}
+        </Grid>
+        <Grid item xs={9} className={classes.gridItem}>
+          {GraphComponent()}
+        </Grid>
+      </Grid>
+    </Grid>
+  )
+}
+
+function Content() {
+  const classes = useStyles();
+
+  const [ titles, setTitles ] = useState(["Overview", "Past 24 Hours", "Forecast"]);
+
+  return (
+
+      <Card className={classes.card}>
+        <CardContent>
+          <Grid container className={classes.contents}>
+            {TitleBar(titles)}
+            {InfoBox()}
+          </Grid>
+        </CardContent>
+      </Card>
+
+    
+  )
+}
+
+
+
+
+
+function MenuBar(props) {
   const classes = useStyles()
   return (<AppBar position="sticky">
             <Toolbar className={classes.title}>
-              <Typography variant="h2" className={classes.title}>
+              <Typography variant="h6" className={classes.title}>
                 WuHan Epidemic Tracking
               </Typography>
 
@@ -248,17 +369,24 @@ function MyAppBar(props) {
           )
 }
 
-function TitleBar(props) {
-  return <h1 className="App-header">Some Title</h1>
-}
-
 
 function App() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <MyAppBar/>
+      <MenuBar/>
       <ContentGridContainer/>
+      <Grid container spacing={0} direction="column" alignItems="center" justify="space-evenly" style={{ minHeight: '100vh'}} >
+        <Grid item xs={3}>
+          text
+        </Grid>
+        <Grid item xs={3}>
+          text2
+        </Grid>
+        <Grid item xs={3}>
+          text3
+        </Grid>
+      </Grid>
     </React.Fragment>
 
   );
