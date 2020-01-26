@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3)
   },
   contentGridItem: {
-    paddingTop: "5px",
+    paddingTop: "30px",
   },
 
 }));
@@ -69,9 +69,12 @@ const TitleBanner = (title) => {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h3" align="center">
-        {title}
-      </Typography>
+      <Grid container paddingB>
+        <Typography variant="h3" align="center">
+          {title}
+        </Typography>
+      </Grid>
+      
     </div>
   );
 }
