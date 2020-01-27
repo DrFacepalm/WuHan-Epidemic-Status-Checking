@@ -25,6 +25,7 @@ import Paper from '@material-ui/core/Paper';
 
 import './App.css';
 
+
 const useStyles = makeStyles(theme => ({
   root: {
     flewGrow: 1,
@@ -39,9 +40,6 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: 'center',
-  },
-  statisticText: {
     textAlign: 'center',
   },
   card: {
@@ -73,76 +71,12 @@ const useStyles = makeStyles(theme => ({
     height: "100%",
   },
   titleComponent_0: {
-    textAlign: "left",
+    align: "left",
     color: "#757575",
-    variant: "h5"
   }
 
 }));
 
-
-
-
-// Title Banner
-
-const TitleBanner = (title) => {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.root}>
-      <Grid container paddingB>
-        <Typography variant="h3" align="center">
-          {title}
-        </Typography>
-      </Grid>
-      
-    </div>
-  );
-}
-
-
-
-// Overall Statistics
-
-const StatisticCard = (title, number) => {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.root}>
-      <Card className={classes.card}>
-        <CardContent>
-          <Typography variant="subtitle1">
-            {title}:
-          </Typography>
-          <Typography variant="h4">
-            {number}
-          </Typography>
-        </CardContent>
-      </Card>
-    </div>
-  )
-}
-
-function OverallStatisticGrid(props) {
-  const classes = useStyles();
-
-  const [ titles, setTitle ] = useState(["Confirmed", "Suspected", "Cured", "Fatalities"]);
-  const [ numbers, setNumbers ] = useState(["800", "1000", "30", "20"]);
-
-  return (
-    <div className={classes.root}>
-      <Grid container spacing={5}>
-        {
-          titles.map((title, index) => (
-            <Grid item xs={6} className={classes.gridItem}>
-              {StatisticCard(title, numbers[index])}
-            </Grid>
-          ))
-        }
-      </Grid>
-    </div>
-  );
-}
 
 // Graph component
 
@@ -231,39 +165,17 @@ function GraphComponent() {
 
 
 
-// Overall Content
-
-function ContentGridContainer() {
-  const classes = useStyles();
-
-  return (
-    <Grid container className={classes.contentGridContainer}>
-      <Grid item xs={12} className={classes.contentGridItem}>
-        {TitleBanner("Overall Stats")}
-      </Grid>
-      <Grid item xs={12} className={classes.contentGridItem}>
-        <OverallStatisticGrid/>
-      </Grid>
-      <Grid item xs={12} className={classes.contentGridItem}>
-        {TitleBanner("Graph")}
-      </Grid>
-      <Grid item xs={12} className={classes.contentGridItem}>
-        <GraphComponent/>
-      </Grid>
-      <Grid item xs={12} className={classes.contentGridItem}>
-        <Content/>
-      </Grid>
-    </Grid>
-  )
-}
-
-
-
 
 // Prototyping Next Design
 
 
-const TitleBar = (titles) => {
+
+
+
+
+
+// TITLE BAR
+const TitleBar = (titles, setTab) => {
   const classes = useStyles()
 
   return (
@@ -271,7 +183,9 @@ const TitleBar = (titles) => {
       <Grid container>
         {
           titles.map((title, index) => (
-            <Grid item xs={2} className={classes.gridItem}>
+            <Grid item xs={2} className={classes.gridItem} onClick={(e) => {
+              setTab(index)
+            }}>
               <Typography className={classes.titleComponent_0} variant="h5">
                 {title}
               </Typography>
@@ -281,16 +195,16 @@ const TitleBar = (titles) => {
       </Grid>
     </Grid>
   )
-  
-
 }
 
+// OVERVIEW
+// text component
 const OverviewTextComponent = () => {
   const classes = useStyles()
 
 
   return (
-    <Grid container className={classes.overviewTextStyle} direction="column" justify="center" alignItems="baseline">
+    <Grid container className={classes.overviewTextStyle} direction="column" justify="space-between" alignItems="flex-start">
       <Grid item xs={3}>
         <Typography className={classes.textComponent_0} variant="h4">
           Confirmed:
@@ -315,6 +229,9 @@ const OverviewTextComponent = () => {
   )
 }
 
+
+// OVERVIEW:
+// info box
 const InfoBox = (type) => {
   const classes = useStyles()
 
@@ -332,27 +249,102 @@ const InfoBox = (type) => {
   )
 }
 
-function Content() {
-  const classes = useStyles();
-
-  const [ titles, setTitles ] = useState(["Overview", "Past 24 Hours", "Forecast"]);
+// OVERVIEW:
+// container
+const OverviewContent = (titles, setTab) => {
+  const classes = useStyles()
 
   return (
-
-      <Card className={classes.card}>
-        <CardContent>
-          <Grid container className={classes.contents}>
-            {TitleBar(titles)}
-            {InfoBox()}
-          </Grid>
-        </CardContent>
-      </Card>
-
-    
+    <Grid container className={classes.contents}>
+      {TitleBar(titles, setTab)}
+      {InfoBox()}
+    </Grid>
   )
 }
 
 
+// 24HOURS:
+// content
+const Last24HourContent = (titles, setTab) => {
+  const classes = useStyles();
+
+  return (
+    <Grid item xs={12}>
+      <Grid container>
+        <Grid item xs={12} className={classes.gridItem}>
+          {GraphComponent()}
+          24 HOUR TAB
+        </Grid>
+      </Grid>
+    </Grid>
+  )
+}
+
+// 24HOURS:
+// container
+const Last24HourContainer = (titles, setTab) => {
+  const classes = useStyles()
+
+  return (
+    <Grid container className={classes.contents}>
+      {TitleBar(titles, setTab)}
+      {Last24HourContent(titles, setTab)}
+    </Grid>
+  )
+}
+
+
+// MAIN CONTENT
+// content
+function Content() {
+  const classes = useStyles();
+
+  const [ titles, setTitles ] = useState(["Overview", "Past 24 Hours", "Forecast"]);
+  const [ tab, setTab ] = useState(0);
+
+  if (tab === 0) {
+    return (
+      <Card className={classes.card}>
+        <CardContent>
+          {OverviewContent(titles, setTab)}
+        </CardContent>
+      </Card>
+    )
+  } else if (tab === 1) {
+    return (
+      <Card className={classes.card}>
+        <CardContent>
+          {Last24HourContainer(titles, setTab)}
+          Bwabwabwabwa
+        </CardContent>
+      </Card>
+    )
+  } else if (tab === 2) {
+    return (
+      <Card className={classes.card}>
+        <CardContent>
+          {OverviewContent(titles, setTab)}
+          Another Tab?
+        </CardContent>
+      </Card>
+    )
+  }
+}
+
+
+// MAIN CONTENT
+// container
+function ContentGridContainer() {
+  const classes = useStyles();
+
+  return (
+    <Grid container className={classes.contentGridContainer}>
+      <Grid item xs={12} className={classes.contentGridItem}>
+        <Content/>
+      </Grid>
+    </Grid>
+  )
+}
 
 
 
@@ -376,17 +368,6 @@ function App() {
       <CssBaseline />
       <MenuBar/>
       <ContentGridContainer/>
-      <Grid container spacing={0} direction="column" alignItems="center" justify="space-evenly" style={{ minHeight: '100vh'}} >
-        <Grid item xs={3}>
-          text
-        </Grid>
-        <Grid item xs={3}>
-          text2
-        </Grid>
-        <Grid item xs={3}>
-          text3
-        </Grid>
-      </Grid>
     </React.Fragment>
 
   );
