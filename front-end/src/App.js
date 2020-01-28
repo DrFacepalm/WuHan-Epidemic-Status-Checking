@@ -185,6 +185,7 @@ const TitleBar = (titles, setTab) => {
           titles.map((title, index) => (
             <Grid item xs={2} className={classes.gridItem} onClick={(e) => {
               setTab(index)
+              console.log(index)
             }}>
               <Typography className={classes.titleComponent_0} variant="h5">
                 {title}
@@ -294,13 +295,28 @@ const Last24HourContainer = (titles, setTab) => {
 }
 
 
+// FORECAST
+// container
+function ForecastContainer(test) {
+  const classes = useStyles();
+
+  return (
+    <Grid container className={classes.contents}>
+      <Grid item xs={12}>
+        {test}
+      </Grid>
+    </Grid>
+  )
+}
+
+
 // MAIN CONTENT
 // content
 function Content() {
   const classes = useStyles();
 
   const [ titles, setTitles ] = useState(["Overview", "Past 24 Hours", "Forecast"]);
-  const [ tab, setTab ] = useState(0);
+  const [ tab, setTab ] = useState(2);
 
   if (tab === 0) {
     return (
@@ -315,7 +331,7 @@ function Content() {
       <Card className={classes.card}>
         <CardContent>
           {Last24HourContainer(titles, setTab)}
-          Bwabwabwabwa
+          24Hour Tab
         </CardContent>
       </Card>
     )
@@ -323,8 +339,8 @@ function Content() {
     return (
       <Card className={classes.card}>
         <CardContent>
-          {OverviewContent(titles, setTab)}
-          Another Tab?
+          <ForecastContainer test="asdf"/>
+          Forecast Tab
         </CardContent>
       </Card>
     )
