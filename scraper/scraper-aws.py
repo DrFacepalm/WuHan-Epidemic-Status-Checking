@@ -15,7 +15,15 @@ def event():
     contents = requests.get("http://3g.dxy.cn/newh5/view/pneumonia").text
     soup = BeautifulSoup(contents, "html.parser")
     tags = soup.find("span", {"class": "content___2hIPS"}).find_all("span")
-    data = [tag.string for tag in tags]
+    data = []
+
+    for tag in tags:
+        if tag.string:
+            data.append(tag.string)
+        else:
+            continue
+
+    print(data)
 
 
     # Create a client.
