@@ -1,9 +1,11 @@
-from bs4 import BeautifulSoup
+
 from botocore.errorfactory import ClientError
+from bs4 import BeautifulSoup
 import requests
 import boto3
 import datetime
 import time
+import re
 
 def event():
     # Info and Credential.
@@ -13,17 +15,10 @@ def event():
 
     # Scrape Data.
     contents = requests.get("http://3g.dxy.cn/newh5/view/pneumonia").text
-    soup = BeautifulSoup(contents, "html.parser")
-    tags = soup.find("span", {"class": "content___2hIPS"}).find_all("span")
-    data = []
-
-    for tag in tags:
-        if tag.string:
-            data.append(tag.string)
-        else:
-            continue
-
-    print(data)
+    site = BeautifulSoup(contents, "html.parser")
+    tag = site.find("script", {"id":"getStatisticsService"})
+    matched = re.search('"confirmedCount":(\d*),"suspectedCount":(\d*),"curedCount":(\d*),"deadCount":(\d*)', str(tag))
+    data = [matched.group(1), matched.group(2), matched.group(4), matched.group(3)]
 
 
     # Create a client.
