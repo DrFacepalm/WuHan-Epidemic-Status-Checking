@@ -53,6 +53,7 @@ def daily_source():
         timestamp = line[0]
         confirmed = int(line[1])
         death = int(line[2])
+        print([timestamp, confirmed, death])
         data.append([timestamp, confirmed, death])
 
     return data
