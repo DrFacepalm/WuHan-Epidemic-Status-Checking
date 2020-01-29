@@ -4,11 +4,6 @@ import { ResponsiveLine } from '@nivo/line'
 
 
 import red from '@material-ui/core/colors/red';
-import purple from '@material-ui/core/colors/purple';
-import pink from '@material-ui/core/colors/pink';
-import deepPurple from '@material-ui/core/colors/deepPurple';
-import indigo from '@material-ui/core/colors/indigo'
-import blue from '@material-ui/core/colors/blue';
 import localData from './fodderdata';
 
 import Card from '@material-ui/core/Card';
@@ -21,7 +16,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography'
 
 import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper';
 
 import './App.css';
 
@@ -73,6 +67,13 @@ const useStyles = makeStyles(theme => ({
   titleComponent_0: {
     align: "left",
     color: "#757575",
+  }, 
+  titleBarItemNeutral: {
+    padding: theme.spacing(3),
+  },
+  titleBarItemSelected: {
+    padding: theme.spacing(3),
+    backgroundColor: "#e0e0e0",
   }
 
 }));
@@ -83,67 +84,67 @@ const useStyles = makeStyles(theme => ({
 const MyGraph = () => {
   return (
     <div style={{height: 500}}>
-    <ResponsiveLine
-      data={localData}
-      margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-      xScale={{ type: 'point' }}
-      yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
-      axisTop={null}
-      axisRight={null}
-      axisBottom={{
-          orient: 'bottom',
-          tickSize: 5,
-          tickPadding: 5,
-          tickRotation: 0,
-          legend: 'transportation',
-          legendOffset: 36,
-          legendPosition: 'middle'
-      }}
-      axisLeft={{
-          orient: 'left',
-          tickSize: 5,
-          tickPadding: 5,
-          tickRotation: 0,
-          legend: 'count',
-          legendOffset: -40,
-          legendPosition: 'middle'
-      }}
-      colors={{ scheme: 'nivo' }}
-      pointSize={10}
-      pointColor={{ theme: 'background' }}
-      pointBorderWidth={2}
-      pointBorderColor={{ from: 'serieColor' }}
-      pointLabel="y"
-      pointLabelYOffset={-12}
-      useMesh={true}
-      legends={[
-          {
-              anchor: 'bottom-right',
-              direction: 'column',
-              justify: false,
-              translateX: 100,
-              translateY: 0,
-              itemsSpacing: 0,
-              itemDirection: 'left-to-right',
-              itemWidth: 80,
-              itemHeight: 20,
-              itemOpacity: 0.75,
-              symbolSize: 12,
-              symbolShape: 'circle',
-              symbolBorderColor: 'rgba(0, 0, 0, .5)',
-              effects: [
-                  {
-                      on: 'hover',
-                      style: {
-                          itemBackground: 'rgba(0, 0, 0, .03)',
-                          itemOpacity: 1
-                      }
-                  }
-              ]
-          }
-      ]}
-    />
-</div>
+      <ResponsiveLine
+        data={localData}
+        margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+        xScale={{ type: 'point' }}
+        yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
+        axisTop={null}
+        axisRight={null}
+        axisBottom={{
+            orient: 'bottom',
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: 'transportation',
+            legendOffset: 36,
+            legendPosition: 'middle'
+        }}
+        axisLeft={{
+            orient: 'left',
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: 'count',
+            legendOffset: -40,
+            legendPosition: 'middle'
+        }}
+        colors={{ scheme: 'nivo' }}
+        pointSize={10}
+        pointColor={{ theme: 'background' }}
+        pointBorderWidth={2}
+        pointBorderColor={{ from: 'serieColor' }}
+        pointLabel="y"
+        pointLabelYOffset={-12}
+        useMesh={true}
+        legends={[
+            {
+                anchor: 'bottom-right',
+                direction: 'column',
+                justify: false,
+                translateX: 100,
+                translateY: 0,
+                itemsSpacing: 0,
+                itemDirection: 'left-to-right',
+                itemWidth: 80,
+                itemHeight: 20,
+                itemOpacity: 0.75,
+                symbolSize: 12,
+                symbolShape: 'circle',
+                symbolBorderColor: 'rgba(0, 0, 0, .5)',
+                effects: [
+                    {
+                        on: 'hover',
+                        style: {
+                            itemBackground: 'rgba(0, 0, 0, .03)',
+                            itemOpacity: 1
+                        }
+                    }
+                ]
+            }
+        ]}
+      />
+    </div>
   )
 }
 
@@ -169,38 +170,102 @@ function GraphComponent() {
 // Prototyping Next Design
 
 
-
-
-
-
-
 // TITLE BAR
-const TitleBar = (titles, setTab) => {
+const TitleBar = (tab, setTab) => {
   const classes = useStyles()
 
-  return (
-    <Grid item xs={12}>
-      <Grid container>
-        {
-          titles.map((title, index) => (
-            <Grid item xs={2} className={classes.gridItem} onClick={(e) => {
-              setTab(index)
-              console.log(index)
+  if (tab === 0) {
+    return (
+      <Grid item xs={12}>
+        <Grid container>
+          <Grid item xs={2} className={classes.titleBarItemSelected} onClick={(e) => {
+            setTab(0)
+          }}>
+            <Typography className={classes.titleComponent_0} variant="h5">
+              Overall
+            </Typography>
+          </Grid>
+          <Grid item xs={2} className={classes.titleBarItemNeutral} onClick={(e) => {
+            setTab(1)
+          }}>
+            <Typography className={classes.titleComponent_0} variant="h5">
+              Last 24 Hours
+            </Typography>
+          </Grid>
+          <Grid item xs={2} className={classes.titleBarItemNeutral} onClick={(e) => {
+            setTab(2)
+          }}>
+            <Typography className={classes.titleComponent_0} variant="h5">
+              Forecast
+            </Typography>
+          </Grid>
+        </Grid>
+      </Grid>
+    )
+  } else if (tab === 1) {
+      return (
+        <Grid item xs={12}>
+          <Grid container>
+            <Grid item xs={2} className={classes.titleBarItemNeutral} onClick={(e) => {
+              setTab(0)
             }}>
               <Typography className={classes.titleComponent_0} variant="h5">
-                {title}
+                Overall
               </Typography>
             </Grid>
-          ))
-        }
+            <Grid item xs={2} className={classes.titleBarItemSelected} onClick={(e) => {
+              setTab(1)
+            }}>
+              <Typography className={classes.titleComponent_0} variant="h5">
+                Last 24 Hours
+              </Typography>
+            </Grid>
+            <Grid item xs={2} className={classes.titleBarItemNeutral} onClick={(e) => {
+              setTab(2)
+            }}>
+              <Typography className={classes.titleComponent_0} variant="h5">
+                Forecast
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+      )
+  } else if (tab === 2) {
+    return (
+      <Grid item xs={12}>
+        <Grid container>
+          <Grid item xs={2} className={classes.titleBarItemNeutral} onClick={(e) => {
+            setTab(0)
+          }}>
+            <Typography className={classes.titleComponent_0} variant="h5">
+              Overall
+            </Typography>
+          </Grid>
+          <Grid item xs={2} className={classes.titleBarItemNeutral} onClick={(e) => {
+            setTab(1)
+          }}>
+            <Typography className={classes.titleComponent_0} variant="h5">
+              Last 24 Hours
+            </Typography>
+          </Grid>
+          <Grid item xs={2} className={classes.titleBarItemSelected} onClick={(e) => {
+            setTab(2)
+          }}>
+            <Typography className={classes.titleComponent_0} variant="h5">
+              Forecast
+            </Typography>
+          </Grid>
+        </Grid>
       </Grid>
-    </Grid>
-  )
+    )
+  }
+
+  
 }
 
 // OVERVIEW
 // text component
-const OverviewTextComponent = () => {
+function OverviewTextComponent() {
   const classes = useStyles()
 
 
@@ -232,15 +297,15 @@ const OverviewTextComponent = () => {
 
 
 // OVERVIEW:
-// info box
-const InfoBox = (type) => {
+// content
+function InfoBox() {
   const classes = useStyles()
 
   return (
     <Grid item xs={12}>
       <Grid container>
         <Grid item xs={3} className={classes.gridItem}>
-          {OverviewTextComponent()}
+          <OverviewTextComponent/>
         </Grid>
         <Grid item xs={9} className={classes.gridItem}>
           {GraphComponent()}
@@ -252,13 +317,13 @@ const InfoBox = (type) => {
 
 // OVERVIEW:
 // container
-const OverviewContent = (titles, setTab) => {
+const OverviewContent = (tab, setTab) => {
   const classes = useStyles()
 
   return (
     <Grid container className={classes.contents}>
-      {TitleBar(titles, setTab)}
-      {InfoBox()}
+      {TitleBar(tab, setTab)}
+      <InfoBox/>
     </Grid>
   )
 }
@@ -266,7 +331,7 @@ const OverviewContent = (titles, setTab) => {
 
 // 24HOURS:
 // content
-const Last24HourContent = (titles, setTab) => {
+function Last24HourContent() {
   const classes = useStyles();
 
   return (
@@ -283,27 +348,45 @@ const Last24HourContent = (titles, setTab) => {
 
 // 24HOURS:
 // container
-const Last24HourContainer = (titles, setTab) => {
+const Last24HourContainer = (tab, setTab) => {
   const classes = useStyles()
 
   return (
     <Grid container className={classes.contents}>
-      {TitleBar(titles, setTab)}
-      {Last24HourContent(titles, setTab)}
+      {TitleBar(tab, setTab)}
+      <Last24HourContent/>
     </Grid>
   )
 }
 
 
 // FORECAST
+// content
+function ForecastContent() {
+  const classes = useStyles()
+
+  return (
+    <Grid item xs={12}>
+      <Grid container>
+        <Grid item xs={12} className={classes.gridItem}>
+          {GraphComponent()}
+          FORECAST TAB
+        </Grid>
+      </Grid>
+    </Grid>
+  )
+}
+
+// FORECAST
 // container
-function ForecastContainer(test) {
+const ForecastContainer = (tab, setTab) => {
   const classes = useStyles();
 
   return (
     <Grid container className={classes.contents}>
       <Grid item xs={12}>
-        {test}
+        {TitleBar(tab, setTab)}
+        <ForecastContent/>
       </Grid>
     </Grid>
   )
@@ -315,14 +398,13 @@ function ForecastContainer(test) {
 function Content() {
   const classes = useStyles();
 
-  const [ titles, setTitles ] = useState(["Overview", "Past 24 Hours", "Forecast"]);
-  const [ tab, setTab ] = useState(2);
+  const [ tab, setTab ] = useState(0);
 
   if (tab === 0) {
     return (
       <Card className={classes.card}>
         <CardContent>
-          {OverviewContent(titles, setTab)}
+          {OverviewContent(tab, setTab)}
         </CardContent>
       </Card>
     )
@@ -330,7 +412,7 @@ function Content() {
     return (
       <Card className={classes.card}>
         <CardContent>
-          {Last24HourContainer(titles, setTab)}
+          {Last24HourContainer(tab, setTab)}
           24Hour Tab
         </CardContent>
       </Card>
@@ -339,7 +421,7 @@ function Content() {
     return (
       <Card className={classes.card}>
         <CardContent>
-          <ForecastContainer test="asdf"/>
+          {ForecastContainer(tab, setTab)}
           Forecast Tab
         </CardContent>
       </Card>
