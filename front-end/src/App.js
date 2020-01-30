@@ -17,6 +17,10 @@ import Typography from '@material-ui/core/Typography'
 
 import Grid from '@material-ui/core/Grid'
 
+import OverallGraph from './components/OverallGraph'
+import DailyGraph from './components/DailyGraph'
+import Last48HoursGraph from './components/Last48HoursGraph'
+
 import './App.css';
 
 
@@ -58,9 +62,6 @@ const useStyles = makeStyles(theme => ({
     color: "#757575",
     variant: "h3",
   },
-  testStyle: {
-    height: "100%",
-  },
   overviewTextStyle: {
     height: "100%",
   },
@@ -79,87 +80,47 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-// Graph component
-
-const MyGraph = () => {
-  return (
-    <div style={{height: 500}}>
-      <ResponsiveLine
-        data={localData}
-        margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-        xScale={{ type: 'point' }}
-        yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
-        axisTop={null}
-        axisRight={null}
-        axisBottom={{
-            orient: 'bottom',
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'transportation',
-            legendOffset: 36,
-            legendPosition: 'middle'
-        }}
-        axisLeft={{
-            orient: 'left',
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'count',
-            legendOffset: -40,
-            legendPosition: 'middle'
-        }}
-        colors={{ scheme: 'nivo' }}
-        pointSize={10}
-        pointColor={{ theme: 'background' }}
-        pointBorderWidth={2}
-        pointBorderColor={{ from: 'serieColor' }}
-        pointLabel="y"
-        pointLabelYOffset={-12}
-        useMesh={true}
-        legends={[
-            {
-                anchor: 'bottom-right',
-                direction: 'column',
-                justify: false,
-                translateX: 100,
-                translateY: 0,
-                itemsSpacing: 0,
-                itemDirection: 'left-to-right',
-                itemWidth: 80,
-                itemHeight: 20,
-                itemOpacity: 0.75,
-                symbolSize: 12,
-                symbolShape: 'circle',
-                symbolBorderColor: 'rgba(0, 0, 0, .5)',
-                effects: [
-                    {
-                        on: 'hover',
-                        style: {
-                            itemBackground: 'rgba(0, 0, 0, .03)',
-                            itemOpacity: 1
-                        }
-                    }
-                ]
-            }
-        ]}
-      />
-    </div>
-  )
-}
-
-function GraphComponent() {
+function OverviewGraphComponent() {
   const classes = useStyles();
 
   return (
       <div className={classes.root}>
         <Card className={classes.card}>
           <CardContent>
-            {MyGraph()}
+            {OverallGraph()}
           </CardContent>
         </Card>
       </div>
 
+  )
+}
+
+function Last48GraphComponent() {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <Card className={classes.card}>
+        <CardContent>
+          {Last48HoursGraph()}
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
+
+
+function ForecastGraphComponent() {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <Card className={classes.card}>
+        <CardContent>
+          {DailyGraph()}
+        </CardContent>
+      </Card>
+    </div>
   )
 }
 
@@ -189,7 +150,7 @@ const TitleBar = (tab, setTab) => {
             setTab(1)
           }}>
             <Typography className={classes.titleComponent_0} variant="h5">
-              Last 24 Hours
+              Last 48 Hours
             </Typography>
           </Grid>
           <Grid item xs={2} className={classes.titleBarItemNeutral} onClick={(e) => {
@@ -217,7 +178,7 @@ const TitleBar = (tab, setTab) => {
               setTab(1)
             }}>
               <Typography className={classes.titleComponent_0} variant="h5">
-                Last 24 Hours
+                Last 48 Hours
               </Typography>
             </Grid>
             <Grid item xs={2} className={classes.titleBarItemNeutral} onClick={(e) => {
@@ -245,7 +206,7 @@ const TitleBar = (tab, setTab) => {
             setTab(1)
           }}>
             <Typography className={classes.titleComponent_0} variant="h5">
-              Last 24 Hours
+              Last 48 Hours
             </Typography>
           </Grid>
           <Grid item xs={2} className={classes.titleBarItemSelected} onClick={(e) => {
@@ -298,7 +259,7 @@ function OverviewTextComponent() {
 
 // OVERVIEW:
 // content
-function InfoBox() {
+function OverviewContent() {
   const classes = useStyles()
 
   return (
@@ -308,7 +269,7 @@ function InfoBox() {
           <OverviewTextComponent/>
         </Grid>
         <Grid item xs={9} className={classes.gridItem}>
-          {GraphComponent()}
+          {OverviewGraphComponent()}
         </Grid>
       </Grid>
     </Grid>
@@ -317,13 +278,13 @@ function InfoBox() {
 
 // OVERVIEW:
 // container
-const OverviewContent = (tab, setTab) => {
+const OverviewContainer = (tab, setTab) => {
   const classes = useStyles()
 
   return (
     <Grid container className={classes.contents}>
       {TitleBar(tab, setTab)}
-      <InfoBox/>
+      <OverviewContent/>
     </Grid>
   )
 }
@@ -331,15 +292,14 @@ const OverviewContent = (tab, setTab) => {
 
 // 24HOURS:
 // content
-function Last24HourContent() {
+function Last48HourContent() {
   const classes = useStyles();
 
   return (
     <Grid item xs={12}>
       <Grid container>
         <Grid item xs={12} className={classes.gridItem}>
-          {GraphComponent()}
-          24 HOUR TAB
+          {Last48GraphComponent()}
         </Grid>
       </Grid>
     </Grid>
@@ -348,13 +308,13 @@ function Last24HourContent() {
 
 // 24HOURS:
 // container
-const Last24HourContainer = (tab, setTab) => {
+const Last48HourContainer = (tab, setTab) => {
   const classes = useStyles()
 
   return (
     <Grid container className={classes.contents}>
       {TitleBar(tab, setTab)}
-      <Last24HourContent/>
+      <Last48HourContent/>
     </Grid>
   )
 }
@@ -369,8 +329,7 @@ function ForecastContent() {
     <Grid item xs={12}>
       <Grid container>
         <Grid item xs={12} className={classes.gridItem}>
-          {GraphComponent()}
-          FORECAST TAB
+          {ForecastGraphComponent()}
         </Grid>
       </Grid>
     </Grid>
@@ -404,7 +363,7 @@ function Content() {
     return (
       <Card className={classes.card}>
         <CardContent>
-          {OverviewContent(tab, setTab)}
+          {OverviewContainer(tab, setTab)}
         </CardContent>
       </Card>
     )
@@ -412,8 +371,7 @@ function Content() {
     return (
       <Card className={classes.card}>
         <CardContent>
-          {Last24HourContainer(tab, setTab)}
-          24Hour Tab
+          {Last48HourContainer(tab, setTab)}
         </CardContent>
       </Card>
     )
@@ -422,7 +380,6 @@ function Content() {
       <Card className={classes.card}>
         <CardContent>
           {ForecastContainer(tab, setTab)}
-          Forecast Tab
         </CardContent>
       </Card>
     )
