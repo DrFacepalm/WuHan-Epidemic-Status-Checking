@@ -21,6 +21,8 @@ import OverallGraph from './components/OverallGraph'
 import DailyGraph from './components/DailyGraph'
 import Last48HoursGraph from './components/Last48HoursGraph'
 
+import axios from 'axios'
+
 import './App.css';
 
 
@@ -28,17 +30,10 @@ const useStyles = makeStyles(theme => ({
   root: {
     flewGrow: 1,
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
   title: {
     flexGrow: 1,
     color: 'white',
     backgroundColor: "#1b1b1b"
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
   },
   card: {
     minWidth: 275,
@@ -60,7 +55,11 @@ const useStyles = makeStyles(theme => ({
   textComponent_0: {
     textAlign: 'left',
     color: "#757575",
-    variant: "h3",
+  },
+  textComponent_1: {
+    textAlign: 'left',
+    color: "#616161",
+    paddingTop: "3px",
   },
   overviewTextStyle: {
     height: "100%",
@@ -124,6 +123,19 @@ function ForecastGraphComponent() {
   )
 }
 
+function DailyTrendGraphComponent() {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <Card className={classes.card}>
+        <CardContent>
+          {DailyGraph()}
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
 
 
 
@@ -157,7 +169,7 @@ const TitleBar = (tab, setTab) => {
             setTab(2)
           }}>
             <Typography className={classes.titleComponent_0} variant="h5">
-              Forecast
+              Daily Trends
             </Typography>
           </Grid>
         </Grid>
@@ -185,7 +197,7 @@ const TitleBar = (tab, setTab) => {
               setTab(2)
             }}>
               <Typography className={classes.titleComponent_0} variant="h5">
-                Forecast
+                Daily Trends
               </Typography>
             </Grid>
           </Grid>
@@ -206,14 +218,14 @@ const TitleBar = (tab, setTab) => {
             setTab(1)
           }}>
             <Typography className={classes.titleComponent_0} variant="h5">
-              Last 48 Hours
+              Daily Trends
             </Typography>
           </Grid>
           <Grid item xs={2} className={classes.titleBarItemSelected} onClick={(e) => {
             setTab(2)
           }}>
             <Typography className={classes.titleComponent_0} variant="h5">
-              Forecast
+              Daily Trends
             </Typography>
           </Grid>
         </Grid>
@@ -228,6 +240,17 @@ const TitleBar = (tab, setTab) => {
 // text component
 function OverviewTextComponent() {
   const classes = useStyles()
+  const [ data, setData ] = useState();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axios('http://3.105.29.147:5000/api/overview');
+      setData(res.data.data)
+    };
+    fetchData();
+
+
+  }, []);
 
 
   return (
@@ -236,20 +259,32 @@ function OverviewTextComponent() {
         <Typography className={classes.textComponent_0} variant="h4">
           Confirmed:
         </Typography>
+        <Typography className={classes.textComponent_1} variant="h5">
+          {((data || {})[0] || {}).value}
+        </Typography>
       </Grid>
       <Grid item xs={3}>
         <Typography className={classes.textComponent_0} variant="h4">
           Suspected:
+        </Typography>
+        <Typography className={classes.textComponent_1} variant="h5">
+          {((data || {})[1] || {}).value}
         </Typography>
       </Grid>
       <Grid item xs={3}>
         <Typography className={classes.textComponent_0} variant="h4">
           Cured:
         </Typography>
+        <Typography className={classes.textComponent_1} variant="h5">
+          {((data || {})[2] || {}).value}
+        </Typography>
       </Grid>
       <Grid item xs={3}>
         <Typography className={classes.textComponent_0} variant="h4">
           Fatalities:
+        </Typography>
+        <Typography className={classes.textComponent_1} variant="h5">
+          {((data || {})[3] || {}).value}
         </Typography>
       </Grid>
     </Grid>
@@ -351,6 +386,37 @@ const ForecastContainer = (tab, setTab) => {
   )
 }
 
+// FORECAST
+// content
+function DailyTrendContent() {
+  const classes = useStyles()
+
+  return (
+    <Grid item xs={12}>
+      <Grid container>
+        <Grid item xs={12} className={classes.gridItem}>
+          {DailyTrendGraphComponent()}
+        </Grid>
+      </Grid>
+    </Grid>
+  )
+}
+
+// FORECAST
+// container
+const DailyTrendContainer = (tab, setTab) => {
+  const classes = useStyles();
+
+  return (
+    <Grid container className={classes.contents}>
+      <Grid item xs={12}>
+        {TitleBar(tab, setTab)}
+        <DailyTrendContent/>
+      </Grid>
+    </Grid>
+  )
+}
+
 
 // MAIN CONTENT
 // content
@@ -379,7 +445,7 @@ function Content() {
     return (
       <Card className={classes.card}>
         <CardContent>
-          {ForecastContainer(tab, setTab)}
+          {DailyTrendContainer(tab, setTab)}
         </CardContent>
       </Card>
     )
