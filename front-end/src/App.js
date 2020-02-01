@@ -1,11 +1,5 @@
 import React, {useState, useEffect, useContext } from 'react';
 
-import { ResponsiveLine } from '@nivo/line'
-
-
-import red from '@material-ui/core/colors/red';
-import localData from './fodderdata';
-
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
@@ -20,6 +14,8 @@ import Grid from '@material-ui/core/Grid'
 import OverallGraph from './components/OverallGraph'
 import DailyGraph from './components/DailyGraph'
 import Last48HoursGraph from './components/Last48HoursGraph'
+import WindowDimensions from './components/WindowDimensions'
+
 
 import axios from 'axios'
 
@@ -43,7 +39,8 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3),
   },
   contentGridContainer: {
-    padding: theme.spacing(3)
+    padding: theme.spacing(3),
+    height: "100%",
   },
   contentGridItem: {
     paddingTop: "30px",
@@ -54,7 +51,7 @@ const useStyles = makeStyles(theme => ({
   },
   textComponent_0: {
     textAlign: 'left',
-    color: "#757575",
+    color: "#9e9e9e",
   },
   textComponent_1: {
     textAlign: 'left',
@@ -218,7 +215,7 @@ const TitleBar = (tab, setTab) => {
             setTab(1)
           }}>
             <Typography className={classes.titleComponent_0} variant="h5">
-              Daily Trends
+              Last 48 Hours
             </Typography>
           </Grid>
           <Grid item xs={2} className={classes.titleBarItemSelected} onClick={(e) => {
@@ -257,7 +254,7 @@ function OverviewTextComponent() {
     <Grid container className={classes.overviewTextStyle} direction="column" justify="space-between" alignItems="flex-start">
       <Grid item xs={3}>
         <Typography className={classes.textComponent_0} variant="h4">
-          Confirmed:
+          Confirmed
         </Typography>
         <Typography className={classes.textComponent_1} variant="h5">
           {((data || {})[0] || {}).value}
@@ -265,7 +262,7 @@ function OverviewTextComponent() {
       </Grid>
       <Grid item xs={3}>
         <Typography className={classes.textComponent_0} variant="h4">
-          Suspected:
+          Suspected
         </Typography>
         <Typography className={classes.textComponent_1} variant="h5">
           {((data || {})[1] || {}).value}
@@ -273,7 +270,7 @@ function OverviewTextComponent() {
       </Grid>
       <Grid item xs={3}>
         <Typography className={classes.textComponent_0} variant="h4">
-          Cured:
+          Cured
         </Typography>
         <Typography className={classes.textComponent_1} variant="h5">
           {((data || {})[2] || {}).value}
@@ -281,7 +278,7 @@ function OverviewTextComponent() {
       </Grid>
       <Grid item xs={3}>
         <Typography className={classes.textComponent_0} variant="h4">
-          Fatalities:
+          Fatalities
         </Typography>
         <Typography className={classes.textComponent_1} variant="h5">
           {((data || {})[3] || {}).value}
@@ -317,7 +314,7 @@ const OverviewContainer = (tab, setTab) => {
   const classes = useStyles()
 
   return (
-    <Grid container className={classes.contents}>
+    <Grid container className={classes.contents} height="100%">
       {TitleBar(tab, setTab)}
       <OverviewContent/>
     </Grid>
@@ -457,6 +454,7 @@ function Content() {
 // container
 function ContentGridContainer() {
   const classes = useStyles();
+  const {_, height} = WindowDimensions();
 
   return (
     <Grid container className={classes.contentGridContainer}>

@@ -17,7 +17,7 @@ function Last48HoursGraph(props)  {
   }, []);
 
   return (
-    <div style={{height: height * 0.5 }}>
+    <div style={{height: height - 400 }}>
       <ResponsiveLine
         data={data}
         margin={{ top: 50, right: 60, bottom: 100, left: 60 }}

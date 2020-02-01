@@ -15,13 +15,10 @@ function OverallGraph(props) {
     fetchData();
     
   }, []);
-
-  const v = ((data || {})[0] || {}).value;
-  console.log(v)
   
 
   return (
-    <div style={{height : height*0.5}}>
+    <div style={{height : height - 400}}>
         <ResponsivePie
         data={data}
         margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
