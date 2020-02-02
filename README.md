@@ -33,17 +33,17 @@ http://ncov.zachaccino.me/
 # Progress
 `scaper` - Completed
 
-`front-end` - Just Started (Eta Completion 26th)
+`front-end` - Completed
 
-`back-end` - Not Yet Started (Eta Completion 26th)
+`back-end` - Completed
 
 
 # 进度
 `scaper` - 已完成
 
-`front-end` - 开发中 (预计完成 1月26日)
+`front-end` - 已完成
 
-`back-end` - 未开始 (预计完成 1月26th)
+`back-end` - 已完成
 
 
 
