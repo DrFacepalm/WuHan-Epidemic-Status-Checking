@@ -5,6 +5,11 @@ A webscraper that gathers information about the WuHan Epidemic, then we can use 
 抓取丁香医生提供的数据来预测未来可能的确诊数量。数据将更新在网页端。
 
 
+
+# Infographics
+http://ncov.zachaccino.me/
+
+
 # Repository Organisation
 `scraper` - A python scraper that downloads the data periodically.
 
