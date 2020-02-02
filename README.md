@@ -45,20 +45,11 @@ http://ncov.zachaccino.me/
 
 `back-end` - 已完成
 
-
-
 # Data
 The data gathering only gathers the total number of `confirmed cases`, `suspected cases`, `cured cases` and `death cases`. There is no breakdown of which province the cases occurs in.
 
 # 数据简要
 这个项目暂时只抓取全部确诊，疑似，治愈以及死亡人数。各省数据暂时不在考虑范围内。 数据抓去频率约为1小时一次。
-
-
-# Next Data Publishing DateP
-26th Jan 12:00PM (Beijing Time)
-
-# 下一批数据公开时间
-一月26日 正午 （北京时间）
 
 
 # Attribution / 数据来源
