@@ -5,6 +5,11 @@ A webscraper that gathers information about the WuHan Epidemic, then we can use 
 抓取丁香医生提供的数据来预测未来可能的确诊数量。数据将更新在网页端。
 
 
+
+# Infographics
+http://ncov.zachaccino.me/
+
+
 # Repository Organisation
 `scraper` - A python scraper that downloads the data periodically.
 
@@ -28,32 +33,23 @@ A webscraper that gathers information about the WuHan Epidemic, then we can use 
 # Progress
 `scaper` - Completed
 
-`front-end` - Just Started (Eta Completion 26th)
+`front-end` - Completed
 
-`back-end` - Not Yet Started (Eta Completion 26th)
+`back-end` - Completed in BRANCH zac
 
 
 # 进度
 `scaper` - 已完成
 
-`front-end` - 开发中 (预计完成 1月26日)
+`front-end` - 已完成
 
-`back-end` - 未开始 (预计完成 1月26th)
-
-
+`back-end` - 已完成
 
 # Data
 The data gathering only gathers the total number of `confirmed cases`, `suspected cases`, `cured cases` and `death cases`. There is no breakdown of which province the cases occurs in.
 
 # 数据简要
 这个项目暂时只抓取全部确诊，疑似，治愈以及死亡人数。各省数据暂时不在考虑范围内。 数据抓去频率约为1小时一次。
-
-
-# Next Data Publishing DateP
-26th Jan 12:00PM (Beijing Time)
-
-# 下一批数据公开时间
-一月26日 正午 （北京时间）
 
 
 # Attribution / 数据来源
