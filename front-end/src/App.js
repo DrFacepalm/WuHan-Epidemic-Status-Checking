@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
   titleComponent_0: {
     align: "left",
     color: "#757575",
-  }, 
+  },
   titleBarItemNeutral: {
     padding: theme.spacing(3),
   },
@@ -81,7 +81,7 @@ function OverviewGraphComponent() {
 
   return (
       <div className={classes.root}>
-        <Card className={classes.card}>
+        <Card className={classes.card} style={{boxShadow: "none"}}>
           <CardContent>
             {OverallGraph()}
           </CardContent>
@@ -96,7 +96,7 @@ function Last48GraphComponent() {
 
   return (
     <div className={classes.root}>
-      <Card className={classes.card}>
+      <Card className={classes.card} style={{boxShadow: "none"}}>
         <CardContent>
           {Last48HoursGraph()}
         </CardContent>
@@ -111,7 +111,7 @@ function ForecastGraphComponent() {
 
   return (
     <div className={classes.root}>
-      <Card className={classes.card}>
+      <Card className={classes.card} style={{boxShadow: "none"}}>
         <CardContent>
           {DailyGraph()}
         </CardContent>
@@ -125,7 +125,7 @@ function DailyTrendGraphComponent() {
 
   return (
     <div className={classes.root}>
-      <Card className={classes.card}>
+      <Card className={classes.card} style={{boxShadow: "none"}}>
         <CardContent>
           {DailyGraph()}
         </CardContent>
@@ -230,7 +230,7 @@ const TitleBar = (tab, setTab) => {
     )
   }
 
-  
+
 }
 
 // OVERVIEW

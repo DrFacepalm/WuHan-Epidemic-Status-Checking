@@ -60,3 +60,6 @@ The data gathering only gathers the total number of `confirmed cases`, `suspecte
 丁香医生
 https://3g.dxy.cn/newh5/view/pneumonia
 
+# Screenshots
+![sc1](./resources/sc1.jpg)
+![sc2](./resources/sc2.jpg)
